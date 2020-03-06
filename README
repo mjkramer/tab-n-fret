@@ -53,30 +53,6 @@ o Xfretboard.c is a X Windows interface to tablature-mode.el.  Notes
 
 
 
-How to obtain the programs
---------------------------
-o Tablature-mode.el and xfretboard.c have been posted to the
-  alt.sources newsgroup.  They should be available at various
-  alt.sources archive sites.  They may also be requested via email
-  from:
-
-	## address specified is no longer in service. bobz@crl.com
-
-	## copies are available on the following hosts:
-
-ftp.uu.net:doc/music/guitar/other_stuff/Tab-n-Fret.tar
-ftp.uwp.edu:pub/music/guitar/other_stuff/Tab-n-Fret.tar
-unix.hensa.ac.uk:pub/uunet/doc/music/guitar/other_stuff/Tab-n-Fret.tar
-ftp.cosy.sbg.ac.at:pub/mirror/guitar/other_stuff/Tab-n-Fret.tar
-ftp.diku.dk:pub/music/guitar/other_stuff/Tab-n-Fret.tar
-ftp.uni-paderborn.de:doc/guitar/other_stuff/Tab-n-Fret.tar
-ftp.uni-stuttgart.de:pub/misc/guitar/other_stuff/Tab-n-Fret.tar
-and
-ftp.informatik.tu-muenchen.de:
-	pub/rec/music/guitar/songs/nevada/other_stuff/Tab-n-Fret.tar
-
-
-
 What is needed to use the programs?
 -----------------------------------
 o For both tablature-mode.el and xfretboard.c:
