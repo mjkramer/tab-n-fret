@@ -1,0 +1,37 @@
+#!/bin/sh
+
+convert() {
+sed -e '
+	s/\\n/\\\\n/g
+	s/"/\\"/g
+' $1 \
+| awk '
+BEGIN		{in_quote=0 ; print "static String fallback_resources[] = {"}
+/^[ \t]*!/	{next}
+/^[ \t]*$/	{next}
+/\\$/		{if (in_quote) {print $0 ; next}
+		 else {in_quote=1 ; print "\"" $0 ; next} }
+		{if (in_quote) { print $0 "\"," ; in_quote = 0}
+		 else print  "\"" $0 "\","}
+END		{printf("NULL\n} ;\n")}
+' > $2
+}
+
+
+
+
+	if [ $# -lt 1 ] ; then
+	echo "Usage: $0 file [file2 ...]"
+	echo "Will convert each file fileN.ad to fileN.h"
+	exit 1
+	fi
+
+	for FILE in $* ; do
+	ADFILE=${FILE}.ad
+	HFILE=${FILE}.h
+		if [ -f $ADFILE ] ; then
+		convert $ADFILE $HFILE
+		else
+		echo $0: no file $ADFILE
+		fi
+	done

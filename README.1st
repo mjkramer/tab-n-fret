@@ -1,0 +1,24 @@
+1/28/94   Minor Patch Recommendation:
+
+The "tablature-mode.el" file contains function names which have
+become obsolete under emacs 19. Users of emacs 19 will have to edit
+this file to replace all instances of "screen-width" with the new
+function name "frame-width", and to replace all instances of "dot-marker" 
+with the newer "point-marker".
+
+The sceptical can verify that these changes should be made by attempting
+to M-x byte-compile-file tablature-mode.el .  The compile log will
+complain and make recommendations.
+
+I have refrained from making these modifications to maintain the sources 
+as they were given to me by the author (Mark R. Rubin). Users of emacs 18
+(and derivatives such as the Atari ST and the MSDOS ports) can probably
+use this tablature-mode.el file in its present condition.
+
+Mark is making career changes and is "of-no-fixed-email-address". Mark 
+advises me that he will post to alt.guitar.tab and rec.music-makers.guitar.tab
+when this circumstance stabilizes.
+
+Bob Zawalski bobz@crl.com
+
+

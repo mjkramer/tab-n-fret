@@ -1,0 +1,21 @@
+#!/bin/sh
+
+XENVIRONMENT=XFretboard.ad
+export XENVIRONMENT
+
+	if [ $# = 0 ]
+	then
+	./xfretboard $*
+	else
+		case $1 in
+		-gdb)
+		shift
+		gdb ./xfretboard $*
+		;;
+
+		*)
+		./xfretboard $*
+		;;
+
+		esac
+	fi

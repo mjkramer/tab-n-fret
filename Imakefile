@@ -1,0 +1,22 @@
+# To use a C compiler different from "cc", or compile flags other than "-O"
+# SGI IRIX needs "-Wf,-XNl6000" in its CDEBUGFLAGS
+# CC = gcc
+# CDEBUGFLAGS = -g
+
+
+LOCAL_LIBRARIES = $(XAWLIB) $(XMULIB) $(XTOOLLIB) $(XLIB)
+SYS_LIBRARIES   = -lm
+
+SRCS = Fretboard.c xfretboard.c
+OBJS = Fretboard.o xfretboard.o
+
+ComplexProgramTarget(xfretboard)
+
+
+Fretboard.o: Fretboard.c Fretboard.h FretboardP.h \
+	     lead_cursor lead_cursor_mask chord_cursor chord_cursor_mask
+
+xfretboard.o: xfretboard.c Fretboard.h XFretboard.h
+
+XFretboard.h: XFretboard.ad
+	./ad2h XFretboard
