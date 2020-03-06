@@ -60,7 +60,20 @@ o Tablature-mode.el and xfretboard.c have been posted to the
   alt.sources archive sites.  They may also be requested via email
   from:
 
-	mark@phineas.jpl.nasa.gov
+	## address specified is no longer in service. bobz@crl.com
+
+	## copies are available on the following hosts:
+
+ftp.uu.net:doc/music/guitar/other_stuff/Tab-n-Fret.tar
+ftp.uwp.edu:pub/music/guitar/other_stuff/Tab-n-Fret.tar
+unix.hensa.ac.uk:pub/uunet/doc/music/guitar/other_stuff/Tab-n-Fret.tar
+ftp.cosy.sbg.ac.at:pub/mirror/guitar/other_stuff/Tab-n-Fret.tar
+ftp.diku.dk:pub/music/guitar/other_stuff/Tab-n-Fret.tar
+ftp.uni-paderborn.de:doc/guitar/other_stuff/Tab-n-Fret.tar
+ftp.uni-stuttgart.de:pub/misc/guitar/other_stuff/Tab-n-Fret.tar
+and
+ftp.informatik.tu-muenchen.de:
+	pub/rec/music/guitar/songs/nevada/other_stuff/Tab-n-Fret.tar
 
 
 
@@ -331,3 +344,4 @@ o This code is released into the public domain without any express or
 o This code may be distributed and modified in any way; however,
   please retain notice of original authorship in this and any
   derivative work.
+
