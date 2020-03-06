@@ -742,12 +742,12 @@ not already in staff."
     (beginning-of-line)
     )
 
-  (insert tab-0-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
-  (insert tab-1-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
-  (insert tab-2-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
-  (insert tab-3-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
-  (insert tab-4-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
-  (insert tab-5-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
+  (insert tab-0-string-prefix) (insert-char ?- (- (window-width) 5)) (newline)
+  (insert tab-1-string-prefix) (insert-char ?- (- (window-width) 5)) (newline)
+  (insert tab-2-string-prefix) (insert-char ?- (- (window-width) 5)) (newline)
+  (insert tab-3-string-prefix) (insert-char ?- (- (window-width) 5)) (newline)
+  (insert tab-4-string-prefix) (insert-char ?- (- (window-width) 5)) (newline)
+  (insert tab-5-string-prefix) (insert-char ?- (- (window-width) 5)) (newline)
 
   (forward-line -6)
   (setq tab-current-string 0)
@@ -776,7 +776,7 @@ not already in staff."
     (next-line -5)
     (setq tab-current-string 0)
 
-    (if (< (current-column) (- (frame-width) 5))
+    (if (< (current-column) (- (window-width) 5))
         (forward-char 5)
       (forward-char 2)
       )
@@ -1138,7 +1138,7 @@ Check that both dot and mark are inside same staff of tab."
 
         (while (<= (point-marker) end) (progn
                                          (tab-transpose-chord fret-array)
-                                         (if (< (current-column) (- (frame-width) 3))
+                                         (if (< (current-column) (- (window-width) 3))
                                              (forward-char 3)
                                            (end-of-line)
                                            )
@@ -1219,9 +1219,9 @@ current tuning."
     (forward-char 2)
 
 ;; change tuning
-    (while (< (current-column) (- (frame-width) 2)) (progn
+    (while (< (current-column) (- (window-width) 2)) (progn
                                                       (tab-transpose-chord tuning-diff)
-                                                      (if (< (current-column) (- (frame-width) 3))
+                                                      (if (< (current-column) (- (window-width) 3))
                                                           (forward-char 3)
                                                         (end-of-line)
                                                         )
