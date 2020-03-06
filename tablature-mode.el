@@ -556,7 +556,7 @@ Flag controls whether chord spelling also includes rational 12-tone version."
 (defun tab-check-in-tab () ; --------------------------------------------------
 "Return t/nil whether cursor is in a tab staff line.  Also, force cursor
 to nearest modulo 3 note position.  Set global variable tab-current-string."
-(let ((placemark (dot-marker))
+(let ((placemark (point-marker))
       (in-tab t)
       (alignment (% (1+ (current-column)) 3))
       (real-case-fold-search case-fold-search))
@@ -742,12 +742,12 @@ not already in staff."
 	(beginning-of-line)
 	)
 
-(insert tab-0-string-prefix) (insert-char ?- (- (screen-width) 5)) (newline)
-(insert tab-1-string-prefix) (insert-char ?- (- (screen-width) 5)) (newline)
-(insert tab-2-string-prefix) (insert-char ?- (- (screen-width) 5)) (newline)
-(insert tab-3-string-prefix) (insert-char ?- (- (screen-width) 5)) (newline)
-(insert tab-4-string-prefix) (insert-char ?- (- (screen-width) 5)) (newline)
-(insert tab-5-string-prefix) (insert-char ?- (- (screen-width) 5)) (newline)
+(insert tab-0-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
+(insert tab-1-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
+(insert tab-2-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
+(insert tab-3-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
+(insert tab-4-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
+(insert tab-5-string-prefix) (insert-char ?- (- (frame-width) 5)) (newline)
 
 (forward-line -6)
 (setq tab-current-string 0)
@@ -776,7 +776,7 @@ not already in staff."
 (next-line -5)
 (setq tab-current-string 0)
 
-	(if (< (current-column) (- (screen-width) 5))
+	(if (< (current-column) (- (frame-width) 5))
 	(forward-char 5)
 	(forward-char 2)
 	)
@@ -816,7 +816,7 @@ not already in staff."
 (backward-char 2)
 	(while (< index 6)
 	(delete-char 3)
-	(setq placemark (dot-marker))
+	(setq placemark (point-marker))
 	(end-of-line)
 	(insert "---")
 	(goto-char placemark)
@@ -917,7 +917,7 @@ or current note (chord-mode)."
 	(previous-line tab-current-string)
 	(backward-char 2)
 		(while (< index 6)
-		(setq placemark (dot-marker))
+		(setq placemark (point-marker))
 		(insert-char ?- (* count 3))
 		(end-of-line)
 		(delete-backward-char (* count 3))
@@ -941,7 +941,7 @@ or current note (chord-mode)."
 dot or mark.  Return t if dot was left of mark, nil otherwise.
 Check that both dot and mark are inside same staff of tab."
 
-(let ((placemark (dot-marker))
+(let ((placemark (point-marker))
       (local-begin)
       (local-end)
       (begin-col)
@@ -972,7 +972,7 @@ Check that both dot and mark are inside same staff of tab."
 	)
 (setq temporary-goal-column (current-column))
 (previous-line tab-current-string)
-(setq local-begin (dot-marker))
+(setq local-begin (point-marker))
 
 ; set end to top staff line
 (goto-char local-end)
@@ -982,7 +982,7 @@ Check that both dot and mark are inside same staff of tab."
 	)
 (setq temporary-goal-column (current-column))
 (previous-line tab-current-string)
-(setq local-end (dot-marker))
+(setq local-end (point-marker))
 
 ; check begin and end in same tab staff
 (goto-char local-begin)
@@ -991,7 +991,7 @@ Check that both dot and mark are inside same staff of tab."
 	(error "Dot and mark must be in same tab staff"))
 	)
 (re-search-forward "$" local-end 2 1)
-	(if (/= local-end (dot-marker)) (progn
+	(if (/= local-end (point-marker)) (progn
 	(goto-char placemark)
 	(error "Dot and mark must be in same tab staff"))
 	)
@@ -1007,7 +1007,7 @@ Check that both dot and mark are inside same staff of tab."
 
 (defun tab-kill-internal (delete) ; -------------------------------------------
 "Delete region of tab, putting in rectangle-kill ring if ARG is t" 
-(let ((placemark (dot-marker))
+(let ((placemark (point-marker))
       (begin) (end)
       (begin-col) (end-col)
       (index 0)
@@ -1019,13 +1019,13 @@ Check that both dot and mark are inside same staff of tab."
 (setq dot-before-mark (tab-begin-end-region 'begin 'end))
 (goto-char begin)
 (backward-char 2)
-(setq begin (dot-marker))
+(setq begin (point-marker))
 (setq begin-col (current-column))
 (goto-char end)
 (setq temporary-goal-column (current-column))
 (next-line 5)
 (forward-char 1)
-(setq end (dot-marker))
+(setq end (point-marker))
 (setq end-col (current-column))
 
 ; do it
@@ -1071,7 +1071,7 @@ Check that both dot and mark are inside same staff of tab."
 (interactive)
 	(if (tab-check-in-tab)
 	(tab-kill-internal t)
-	(kill-region (dot-marker) (mark-marker))
+	(kill-region (point-marker) (mark-marker))
 	)
 ) ; tab-kill-region
 
@@ -1082,7 +1082,7 @@ Check that both dot and mark are inside same staff of tab."
 (interactive)
 	(if (tab-check-in-tab)
 	(tab-kill-internal nil)
-	(copy-region-as-kill (dot-marker) (mark-marker))
+	(copy-region-as-kill (point-marker) (mark-marker))
 	)
 ) ; tab-copy-region-as-kill
 
@@ -1092,11 +1092,11 @@ Check that both dot and mark are inside same staff of tab."
 "Insert region of tab from rectangle kill ring"
 (interactive)
 	(if (tab-check-in-tab)
-	(let ((placemark (dot-marker)) (top-line) (index 0))
+	(let ((placemark (point-marker)) (top-line) (index 0))
 	(setq temporary-goal-column (current-column))
 	(previous-line tab-current-string)
 	(backward-char 2)
-	(setq top-line (dot-marker))
+	(setq top-line (point-marker))
 		(while (< index 6)
 		(end-of-line)
 		(delete-backward-char tab-killed-width)
@@ -1136,9 +1136,9 @@ Check that both dot and mark are inside same staff of tab."
 	(tab-begin-end-region 'begin 'end)
 	(goto-char begin)
 
-		(while (<= (dot-marker) end) (progn
+		(while (<= (point-marker) end) (progn
 		(tab-transpose-chord fret-array)
-			(if (< (current-column) (- (screen-width) 3))
+			(if (< (current-column) (- (frame-width) 3))
 			(forward-char 3)
 			(end-of-line)
 			)
@@ -1170,14 +1170,14 @@ current tuning."
 (message "Copying this staff and converting to current tuning ...")
 
 ; make new staff
-(setq old-cursor (dot-marker))
+(setq old-cursor (point-marker))
 (forward-line 6)
 	; find blank line, or end of file
 	(while (not (looking-at "^$")) (forward-line 1))
 (newline 1)
 (tab-make-staff)
 (beginning-of-line)
-(setq new-cursor (dot-marker))
+(setq new-cursor (point-marker))
 
 ; learn tunings
 (goto-char old-cursor)
@@ -1196,19 +1196,19 @@ current tuning."
 ; delete new staff past tuning signature
 (goto-char new-cursor)
 (forward-char 3)
-(setq new-cursor (dot-marker))
+(setq new-cursor (point-marker))
 (forward-line 5)
 (end-of-line)
-(kill-rectangle new-cursor (dot-marker))
+(kill-rectangle new-cursor (point-marker))
 (goto-char new-cursor)
 
 ; memorize old staff past tuning signature
 (goto-char old-cursor)
 (forward-char 3)
-(setq old-cursor (dot-marker))
+(setq old-cursor (point-marker))
 (forward-line 5)
 (end-of-line)
-(kill-rectangle old-cursor (dot-marker))
+(kill-rectangle old-cursor (point-marker))
 (goto-char old-cursor)
 (yank-rectangle)
 
@@ -1219,9 +1219,9 @@ current tuning."
 (forward-char 2)
 
 ; change tuning
-	(while (< (current-column) (- (screen-width) 2)) (progn
+	(while (< (current-column) (- (frame-width) 2)) (progn
 	(tab-transpose-chord tuning-diff)
-		(if (< (current-column) (- (screen-width) 3))
+		(if (< (current-column) (- (frame-width) 3))
 		(forward-char 3)
 		(end-of-line)
 		)
@@ -1236,7 +1236,7 @@ current tuning."
 (defun tab-analyze-tuning (tuning) ; ------------------------------------------
 "Fill six-element array TUNING with numeric values representing letter
 notes at beginning of current plus next 5 screen lines."
-(let ((placemark (dot-marker)) (ndx 0) (numeric))
+(let ((placemark (point-marker)) (ndx 0) (numeric))
 
 	(while (< ndx 6) (progn
 	(beginning-of-line)
@@ -1314,9 +1314,9 @@ new tuning.  Each line must be unique."
 "Copy first three characters of line into STRING."
 (let ((begin))
 (beginning-of-line)
-(setq begin (dot-marker))
+(setq begin (point-marker))
 (forward-char 3)
-(set string (buffer-substring begin (dot-marker)))
+(set string (buffer-substring begin (point-marker)))
 (forward-line 1)
 )) ; tab-learn-string
 
@@ -1380,7 +1380,7 @@ used immediately after `\\[tab-analyze-chord]' (tab-analyze-chord)"
       (chord-column)
       (name-begin)
       (delete-begin)
-      (placemark (dot-marker)))
+      (placemark (point-marker)))
 
 	(if (not (equal last-command 'tab-analyze-chord))
 	(error "Use only immediately after `%s' (tab-analyze-chord)"
@@ -1399,9 +1399,9 @@ used immediately after `\\[tab-analyze-chord]' (tab-analyze-chord)"
 	(if (< (current-column) chord-column) (progn
 	; insert spaces
 	(indent-to-column chord-column)
-	(setq name-begin (dot-marker))
+	(setq name-begin (point-marker))
 	(beginning-of-line)
-	(untabify (dot-marker) name-begin)
+	(untabify (point-marker) name-begin)
 	(move-to-column chord-column)
 	))
 
@@ -1450,7 +1450,7 @@ immediately afterwards to insert chord into tab."
 		(if (or (equal last-command this-command)
 			(not (looking-at "[0-9]")))
 		(tab-next-chord-note))
-	(setq root-note-marker (dot-marker))
+	(setq root-note-marker (point-marker))
 	(setq root-string tab-current-string)
 	(setq root (tab-analyze-note))
 	(setq root-name (aref tab-note-names root))
@@ -1779,14 +1779,14 @@ and return t.  Otherwise, leaves all alone and returns nil."
 
 	(if (looking-at "[0-9]") (progn
 	(forward-char 1)
-	(setq end (dot-marker))
+	(setq end (point-marker))
 	(backward-char 2)
 		(if (not (looking-at "[12]")) (progn
 		(forward-char 1)
 		(setq digits 0)
 		))
 
-	(setq fret (string-to-int (buffer-substring (dot-marker) end)))
+	(setq fret (string-to-int (buffer-substring (point-marker) end)))
 	(forward-char digits)
 	))
 
